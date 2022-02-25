@@ -995,7 +995,7 @@ int fbtft_register_framebuffer(struct fb_info *fb_info)
 	fbtft_sysfs_init(par);
 
 	if (par->txbuf.buf)
-		sprintf(text1, ", %d KiB %sbuffer memory",
+		sprintf(text1, ", %ld KiB %sbuffer memory",
 			par->txbuf.len >> 10, par->txbuf.dma ? "DMA " : "");
 	if (spi)
 		sprintf(text2, ", spi%d.%d at %d MHz", spi->master->bus_num,
@@ -1041,7 +1041,7 @@ int fbtft_unregister_framebuffer(struct fb_info *fb_info)
 {
 	struct fbtft_par *par = fb_info->par;
 	struct spi_device *spi = par->spi;
-	int ret;
+	int ret = 0;
 
 	if (spi)
 		spi_set_drvdata(spi, NULL);
